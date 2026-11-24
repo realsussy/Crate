@@ -60,10 +60,18 @@ button.row:active,a.row:active{background:var(--fill)}
 .sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.3);transition:transform .2s}
 .sw:checked{background:#34c759}.sw:checked::after{transform:translateX(20px)}
 .vis{border:0;background:transparent;color:var(--blue);font:inherit;font-size:15px;padding:0;cursor:pointer;letter-spacing:inherit;text-align:left}
+#dl{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+#sheet{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end}
+#sheet .scrim{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;transition:opacity .35s ease}
+#sheet.on .scrim{opacity:1}
+#sheet .sheet{transform:translateY(105%);transition:transform .5s cubic-bezier(.32,.72,0,1);will-change:transform;position:relative;width:100%;max-width:600px;margin:0 auto;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+#sheet.on .sheet{transform:none}
+#sheet .sh{text-align:center;font-size:13px;color:var(--label2);padding:12px 16px 8px}
+#sheet .group{background:var(--cell)}
 [hidden]{display:none!important}
 #toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 56px);transform:translate(-50%,-10px);z-index:9;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.2);padding:10px 18px;border-radius:999px;font-size:15px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 #toast.on{opacity:1;transform:translate(-50%,0)}
-@media (prefers-reduced-motion:reduce){#toast,.nav,.sw,.sw::after{transition:none}}
+@media (prefers-reduced-motion:reduce){#toast,.nav,.sw,.sw::after,#sheet .scrim,#sheet .sheet{transition:none}}
 </style>
 </head>
 <body>
@@ -77,10 +85,10 @@ button.row:active,a.row:active{background:var(--fill)}
     </div>
     <div class="head">Shortcut</div>
     <div class="group">
-      <a class="row" id="dl" href="https://www.icloud.com/shortcuts/6d5ad29cea14486d991099e39e1a0752"><span class="grow blue">Download Crate</span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg></a>
+      <a class="row" id="dl" href="https://www.icloud.com/shortcuts/a6b8111d32054e7eb1b8d31bf468c319"><span class="grow blue">Download Crate</span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg></a>
       <button class="row" id="cpShort"><span class="grow">Copy link</span></button>
     </div>
-    <div class="foot">Opens in the Shortcuts app. Tap Add Shortcut to finish.</div>
+    <div class="foot">Opens in the Shortcuts app. Tap Add Shortcut to finish. Hold Download Crate to see older versions.</div>
     <div class="head">How it works</div>
     <div class="group">
       <div class="row"><span class="grow"><b>1. Add an app</b><small>Open Store and paste a Catbox link.</small></span></div>
@@ -170,6 +178,7 @@ button.row:active,a.row:active{background:var(--fill)}
   <button class="tab" role="tab" data-t="guide" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 115 0c0 1.5-2.5 2-2.5 3.5M12 17h.01"/></svg>Guide</button>
   <button class="tab" role="tab" data-t="links" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 006.4 0l3-3a4.5 4.5 0 00-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 00-6.4 0l-3 3a4.5 4.5 0 006.4 6.4l1-1"/></svg>Links</button>
 </nav>
+<div id="sheet" hidden><div class="scrim" id="scrim"></div><div class="sheet"><div class="group"><div class="sh">Crate versions</div><div id="vl"></div></div><div class="group" style="margin-top:8px"><button class="row" id="vc"><span class="grow blue" style="font-weight:600;text-align:center">Cancel</span></button></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -197,6 +206,30 @@ function show(t){
 }
 document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){show(b.dataset.t)}});
 window.addEventListener("scroll",function(){$("nav").className="nav"+(window.scrollY>40?" on":"")},{passive:true});
+var VERSIONS=[{name:"Latest update",note:"Adds Crate to the Share Sheet to send URLs fast",url:"https://www.icloud.com/shortcuts/a6b8111d32054e7eb1b8d31bf468c319"},{name:"Menu update",note:"Added the full menu with Sideload, LiveContainer and more",url:"https://www.icloud.com/shortcuts/6cbcca03b6e048709063c8be25a181a5"},{name:"Original version",note:"The first Crate release",url:"https://www.icloud.com/shortcuts/6d5ad29cea14486d991099e39e1a0752"}];
+(function(){
+  var dl=$("dl"),lp=null,fired=false,vl=$("vl");
+  VERSIONS.forEach(function(v){
+    var a=document.createElement("a");a.className="row";a.href=v.url;
+    a.innerHTML='<span class="grow"><b></b><small></small></span>';
+    a.querySelector("b").textContent=v.name;a.querySelector("small").textContent=v.note;
+    vl.appendChild(a);
+  });
+  var sh=$("sheet"),pn=sh.querySelector(".sheet"),ct=null,y0=null,dy=0;
+  function open(o){
+    clearTimeout(ct);
+    if(o){sh.hidden=false;void sh.offsetHeight;sh.classList.add("on")}
+    else{sh.classList.remove("on");pn.style.transform="";ct=setTimeout(function(){sh.hidden=true},450)}
+  }
+  pn.addEventListener("touchstart",function(e){y0=e.touches[0].clientY;dy=0;pn.style.transition="none"},{passive:true});
+  pn.addEventListener("touchmove",function(e){if(y0===null)return;dy=Math.max(0,e.touches[0].clientY-y0);pn.style.transform="translateY("+dy+"px)"},{passive:true});
+  pn.addEventListener("touchend",function(){if(y0===null)return;y0=null;pn.style.transition="";if(dy>80)open(false);else pn.style.transform=""});
+  dl.addEventListener("touchstart",function(){fired=false;clearTimeout(lp);lp=setTimeout(function(){fired=true;open(true)},500)},{passive:true});
+  ["touchend","touchmove","touchcancel"].forEach(function(ev){dl.addEventListener(ev,function(){clearTimeout(lp)},{passive:true})});
+  dl.addEventListener("contextmenu",function(e){e.preventDefault();fired=true;open(true)});
+  dl.addEventListener("click",function(e){if(fired){e.preventDefault();fired=false}});
+  $("scrim").onclick=$("vc").onclick=function(){open(false)};
+})();
 var h=(location.hash||"").slice(1);if(titles[h])show(h);
 
 function linkRow(g,name,desc,url,color,path){
