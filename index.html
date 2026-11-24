@@ -95,11 +95,17 @@ button.row:active,a.row:active{background:var(--fill)}
     <div class="group">
       <label class="row field"><span style="width:96px;flex:none">Name</span><input type="text" id="n" placeholder="App name" autocomplete="off"></label>
       <label class="row field"><span style="width:96px;flex:none">Version</span><input type="text" id="v" placeholder="Optional" autocomplete="off"></label>
-      <label class="row field"><span style="width:96px;flex:none">Catbox link</span><input type="url" id="u" placeholder="files.catbox.moe/…" autocapitalize="off" autocorrect="off"></label>
+      <label class="row field"><span style="width:96px;flex:none">Download link</span><input type="url" id="u" placeholder="files.catbox.moe/…" autocapitalize="off" autocorrect="off"></label>
       <label class="row"><span class="grow"><b id="vt">Public</b><small id="vs">Shown to everyone once you publish it</small></span><input type="checkbox" class="sw" id="pub" checked aria-label="Public"></label>
       <button class="row" id="add"><span class="grow blue" style="font-weight:600">Add app</span></button>
     </div>
-    <div class="foot">Use a full link ending in .ipa, like https://files.catbox.moe/abc123.ipa</div>
+    <div class="foot">Paste a Catbox or GitHub download link ending in .ipa.</div>
+    <div class="head">Add from GitHub</div>
+    <div class="group">
+      <label class="row field"><span style="width:96px;flex:none">Repo link</span><input type="url" id="ghu" placeholder="github.com/user/repo" autocapitalize="off" autocorrect="off"></label>
+      <button class="row" id="gh"><span class="grow blue" style="font-weight:600">Find IPA and add</span></button>
+    </div>
+    <div class="foot">Uses the latest release of the repo, and the Public switch above.</div>
     <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input type="search" id="q" placeholder="Search" aria-label="Search your store"></div>
     <div class="head">Public store</div>
     <div id="plist"></div>
@@ -112,6 +118,38 @@ button.row:active,a.row:active{background:var(--fill)}
       <button class="row" id="imp"><span class="grow blue">Import JSON</span></button>
     </div>
     <div class="foot">To make public apps visible to everyone: copy the JSON, then paste it into store.json in your repo and commit.</div>
+  </section>
+
+  <section id="guide" role="tabpanel" hidden>
+    <h1>Guide</h1>
+    <div class="head">1. Put your IPA on GitHub</div>
+    <div class="group">
+      <div class="row"><span class="grow"><b>Make an account</b><small>Go to github.com and sign up. It’s free.</small></span></div>
+      <div class="row"><span class="grow"><b>Create a public repo</b><small>Tap + then New repository. Name it after your app and set it to Public.</small></span></div>
+      <div class="row"><span class="grow"><b>Create a release</b><small>On the repo page, open Releases and tap Create a new release. If you can’t see it, use Request Desktop Website in Safari’s aA menu.</small></span></div>
+      <div class="row"><span class="grow"><b>Attach the IPA</b><small>Set a tag like v1.0, then add your .ipa file from Files under the attach area.</small></span></div>
+      <div class="row"><span class="grow"><b>Publish release</b><small>Releases take much bigger files than normal uploads.</small></span></div>
+    </div>
+    <div class="head">2. Add it to the store</div>
+    <div class="group">
+      <div class="row"><span class="grow"><b>Open the Store tab</b><small>Find Add from GitHub.</small></span></div>
+      <div class="row"><span class="grow"><b>Paste your repo link</b><small>For example github.com/you/my-app. Tap Find IPA and add.</small></span></div>
+      <div class="row"><span class="grow"><b>Or use any download link</b><small>A Catbox or GitHub link ending in .ipa works in Add app.</small></span></div>
+    </div>
+    <div class="foot">Companion reads the latest release and picks the first .ipa it finds.</div>
+    <div class="head">3. Make it public</div>
+    <div class="group">
+      <div class="row"><span class="grow"><b>Keep the Public switch on</b><small>Private apps stay on your device only.</small></span></div>
+      <div class="row"><span class="grow"><b>Copy JSON to publish</b><small>Tap it under Backup in the Store tab.</small></span></div>
+      <div class="row"><span class="grow"><b>Edit store.json</b><small>Open it in your Companion repo, tap the pencil, paste, and commit.</small></span></div>
+      <div class="row"><span class="grow"><b>Wait a minute</b><small>Then everyone who opens the site sees your app.</small></span></div>
+    </div>
+    <div class="head">4. Install it</div>
+    <div class="group">
+      <div class="row"><span class="grow"><b>Copy the link</b><small>Tap Copy on the app, then paste it into Crate.</small></span></div>
+      <div class="row"><span class="grow"><b>Open the IPA</b><small>Install the saved file with a tool from the Links tab.</small></span></div>
+    </div>
+    <div class="foot">Only share apps you made or have permission to share.</div>
   </section>
 
   <section id="links" role="tabpanel" hidden>
@@ -129,12 +167,14 @@ button.row:active,a.row:active{background:var(--fill)}
 <nav class="tabbar" role="tablist" aria-label="Sections">
   <button class="tab" role="tab" data-t="get" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v8M8.5 12.5l3.5 3.5 3.5-3.5"/></svg>Get</button>
   <button class="tab" role="tab" data-t="store" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Store</button>
+  <button class="tab" role="tab" data-t="guide" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 115 0c0 1.5-2.5 2-2.5 3.5M12 17h.01"/></svg>Guide</button>
   <button class="tab" role="tab" data-t="links" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 006.4 0l3-3a4.5 4.5 0 00-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 00-6.4 0l-3 3a4.5 4.5 0 006.4 6.4l1-1"/></svg>Links</button>
 </nav>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
+function okUrl(u){return /^https:\/\/([a-z]+\.catbox\.moe|github\.com|raw\.githubusercontent\.com|objects\.githubusercontent\.com)\//i.test(u)}
 var KEY="crate-companion-store",SHORT=document.getElementById("dl").href;
 var CH='<svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg>';
 function $(i){return document.getElementById(i)}
@@ -147,9 +187,9 @@ function copy(txt,msg){
   function fb(){var a=document.createElement("textarea");a.value=txt;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){toast("Copy failed")}a.remove()}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,fb)}else fb();
 }
-var titles={get:"Crate",store:"Store",links:"Links"};
+var titles={get:"Crate",store:"Store",guide:"Guide",links:"Links"};
 function show(t){
-  ["get","store","links"].forEach(function(s){$(s).hidden=s!==t});
+  ["get","store","guide","links"].forEach(function(s){$(s).hidden=s!==t});
   document.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-selected",b.dataset.t===t)});
   $("navt").textContent=titles[t];
   try{history.replaceState(null,"","#"+t)}catch(e){}
@@ -170,6 +210,7 @@ linkRow($("g1"),"SideStore","An AltStore fork that refreshes on-device.","https:
 linkRow($("g1"),"Sideloadly","Install an IPA from a Mac or PC.","https://sideloadly.io","#ff9500",ic1);
 linkRow($("g1"),"TrollStore","Permanent installs on certain iOS versions.","https://github.com/opa334/TrollStore","#8e8e93",ic1);
 linkRow($("g2"),"Catbox","Free file host, up to 200 MB per file.","https://catbox.moe","#ff2d55",ic2);
+linkRow($("g2"),"GitHub","Host IPAs in a repo’s Releases.","https://github.com","#24292f",ic2);
 linkRow($("g2"),"Catbox rules","Allowed file types and content.","https://catbox.moe/faq.php","#8e8e93",'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>');
 
 var remote=[];
@@ -212,7 +253,7 @@ function render(){
 }
 function loadRemote(){
   fetch("store.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():{apps:[]}}).then(function(j){
-    remote=(j.apps||[]).map(norm).filter(function(a){return /^https:\/\/[a-z]+\.catbox\.moe\//i.test(a.url)});render();
+    remote=(j.apps||[]).map(norm).filter(function(a){return okUrl(a.url)});render();
   }).catch(function(){render()});
 }
 $("pub").onchange=function(){
@@ -224,9 +265,27 @@ $("add").onclick=function(){
   var n=$("n").value.trim(),v=$("v").value.trim(),u=$("u").value.trim();
   if(u&&!/^https?:\/\//i.test(u))u="https://"+u;
   if(!n){toast("Enter an app name");return}
-  if(!/^https:\/\/[a-z]+\.catbox\.moe\/[\w.\-]+$/i.test(u)){toast("Use a full Catbox link ending in .ipa");return}
+  if(!okUrl(u)){toast("Use a Catbox or GitHub download link");return}
   apps.unshift({name:n,version:v,url:u,pub:$("pub").checked});save(apps);
   $("n").value=$("v").value=$("u").value="";render();toast("Added "+n+($("pub").checked?". Publish it to make it public.":""));
+};
+function parseRepo(t){var m=t.trim().replace(/^https?:\/\//i,"").replace(/^www\./i,"").match(/^github\.com\/([\w.\-]+)\/([\w.\-]+)/i);return m?{o:m[1],r:m[2].replace(/\.git$/i,"")}:null}
+$("gh").onclick=function(){
+  var p=parseRepo($("ghu").value);
+  if(!p){toast("Use a link like github.com/user/repo");return}
+  toast("Looking for an IPA…");
+  fetch("https://api.github.com/repos/"+p.o+"/"+p.r+"/releases/latest",{headers:{Accept:"application/vnd.github+json"}}).then(function(r){
+    if(r.status===404)throw new Error("none");
+    if(!r.ok)throw new Error("api");
+    return r.json();
+  }).then(function(j){
+    var as=(j.assets||[]).filter(function(a){return /\.ipa$/i.test(a.name)});
+    if(!as.length){toast("No .ipa in the latest release");return}
+    var a=as[0],ver=String(j.tag_name||"").replace(/^v/i,"");
+    if(apps.some(function(x){return x.url===a.browser_download_url})){toast("Already in your store");return}
+    apps.unshift({name:p.r,version:ver,url:a.browser_download_url,pub:$("pub").checked});
+    save(apps);render();$("ghu").value="";toast("Added "+p.r);
+  }).catch(function(e){toast(e.message==="none"?"No release found. See the Guide tab":"GitHub didn’t respond. Try again later")});
 };
 $("q").oninput=render;
 $("cpShort").onclick=function(){copy(SHORT,"Shortcut link copied")};
@@ -239,8 +298,8 @@ $("exp").onclick=function(){
 $("imp").onclick=function(){
   var t=prompt("Paste store JSON");if(!t)return;
   try{
-    var j=JSON.parse(t),ar=(j.apps||[]).map(function(a){return{name:String(a.name||"App"),version:String(a.version||""),url:String(a.downloadURL||a.url||""),pub:false}}).filter(function(a){return /^https:\/\/[a-z]+\.catbox\.moe\//i.test(a.url)});
-    if(!ar.length){toast("No Catbox apps found");return}
+    var j=JSON.parse(t),ar=(j.apps||[]).map(function(a){return{name:String(a.name||"App"),version:String(a.version||""),url:String(a.downloadURL||a.url||""),pub:false}}).filter(function(a){return okUrl(a.url)});
+    if(!ar.length){toast("No valid apps found");return}
     apps=ar.concat(apps);save(apps);render();toast("Imported "+ar.length+" app"+(ar.length>1?"s":""));
   }catch(e){toast("That isn’t valid JSON")}
 };
