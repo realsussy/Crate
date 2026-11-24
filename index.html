@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crate">
+<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<title>Crate Companion</title>
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon.png">
+<style>
+:root{--bg:#f2f2f7;--cell:#fff;--label:#000;--label2:rgba(60,60,67,.6);--sep:rgba(60,60,67,.29);--blue:#007aff;--red:#ff3b30;--fill:rgba(120,120,128,.12);--bar:rgba(249,249,249,.78)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--cell:#1c1c1e;--label:#fff;--label2:rgba(235,235,245,.6);--sep:rgba(84,84,88,.65);--blue:#0a84ff;--red:#ff453a;--fill:rgba(118,118,128,.24);--bar:rgba(29,29,31,.78)}}
+:root[data-theme="dark"]{--bg:#000;--cell:#1c1c1e;--label:#fff;--label2:rgba(235,235,245,.6);--sep:rgba(84,84,88,.65);--blue:#0a84ff;--red:#ff453a;--fill:rgba(118,118,128,.24);--bar:rgba(29,29,31,.78)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--label);font:17px/1.3 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;letter-spacing:-.022em;-webkit-text-size-adjust:100%}
+.nav{position:fixed;top:0;left:0;right:0;z-index:5;height:calc(44px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);display:flex;align-items:center;justify-content:center;font-weight:600;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep);opacity:0;transition:opacity .15s}
+.nav.on{opacity:1}
+main{max-width:600px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px calc(90px + env(safe-area-inset-bottom,0px))}
+h1{font-size:34px;line-height:1.1;font-weight:700;letter-spacing:.01em;margin:44px 0 10px 4px}
+.foot,.head{font-size:13px;color:var(--label2);padding:0 16px;letter-spacing:-.01em}
+.head{text-transform:uppercase;font-size:13px;margin:22px 0 7px}
+.foot{margin:7px 0 0}
+.group{background:var(--cell);border-radius:12px;overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 16px;position:relative;width:100%;border:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-align:left;text-decoration:none}
+.row+.row::before{content:"";position:absolute;top:0;left:16px;right:0;border-top:.5px solid var(--sep)}
+button.row,a.row{cursor:pointer}
+button.row:active,a.row:active{background:var(--fill)}
+.row .grow{flex:1;min-width:0;padding:8px 0}
+.row b{font-weight:400;display:block;overflow-wrap:anywhere}
+.row small{display:block;color:var(--label2);font-size:15px;overflow-wrap:anywhere}
+.blue{color:var(--blue)}.red{color:var(--red)}
+.chev{width:8px;height:14px;flex:none;color:var(--label2);opacity:.6}
+.icon{width:30px;height:30px;border-radius:7px;flex:none;display:grid;place-items:center;color:#fff}
+.icon svg{width:18px;height:18px}
+.field label{width:96px;flex:none}
+.field input{flex:1;min-width:0;height:44px;border:0;outline:0;background:transparent;color:var(--label);font:inherit;letter-spacing:inherit;text-align:right}
+.field input::placeholder{color:var(--label2)}
+.search{display:flex;align-items:center;gap:6px;background:var(--fill);border-radius:10px;height:36px;padding:0 8px;margin:14px 0 0}
+.search svg{width:16px;height:16px;color:var(--label2);flex:none}
+.search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--label);font:17px inherit;font-family:inherit}
+.pill{border:0;background:var(--blue);color:#fff;border-radius:999px;font:600 15px inherit;font-family:inherit;padding:6px 14px;cursor:pointer}
+.pill:active{opacity:.7}
+.hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 0 4px}
+.app-icon{width:92px;height:92px;border-radius:22px;background:#1c1c1e;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.25);margin-bottom:12px}
+.app-icon svg{width:100%;height:100%}
+.hero p{margin:0;color:var(--label2);font-size:15px;max-width:30ch}
+.empty{text-align:center;color:var(--label2);padding:28px 16px}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;padding:6px 8px calc(4px + env(safe-area-inset-bottom,0px));background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--sep)}
+.tab{flex:1;max-width:140px;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:transparent;color:var(--label2);font:500 10px/1.2 -apple-system,system-ui,sans-serif;letter-spacing:.01em;padding:3px 0;cursor:pointer}
+.tab svg{width:26px;height:26px}
+.tab[aria-selected=true]{color:var(--blue)}
+.tab:active svg{transform:scale(.92)}
+.tab:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.sw{-webkit-appearance:none;appearance:none;width:51px;height:31px;border-radius:999px;background:var(--fill);position:relative;flex:none;margin:0;cursor:pointer;transition:background .2s}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.3);transition:transform .2s}
+.sw:checked{background:#34c759}.sw:checked::after{transform:translateX(20px)}
+.vis{border:0;background:transparent;color:var(--blue);font:inherit;font-size:15px;padding:0;cursor:pointer;letter-spacing:inherit;text-align:left}
+[hidden]{display:none!important}
+#toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 56px);transform:translate(-50%,-10px);z-index:9;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.2);padding:10px 18px;border-radius:999px;font-size:15px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){#toast,.nav,.sw,.sw::after{transition:none}}
+</style>
+</head>
+<body>
+<div class="nav" id="nav"><span id="navt">Crate</span></div>
+<main>
+  <section id="get" role="tabpanel">
+    <h1>Crate</h1>
+    <div class="hero">
+      <div class="app-icon" aria-hidden="true"><svg viewBox="0 0 100 100" fill="#6cb8e6"><ellipse cx="31.4" cy="30.5" rx="7" ry="7" transform="rotate(0 31.4 30.5)"/><ellipse cx="49.8" cy="24.7" rx="8.5" ry="8.5" transform="rotate(0 49.8 24.7)"/><ellipse cx="68.6" cy="32.3" rx="8" ry="8" transform="rotate(0 68.6 32.3)"/><ellipse cx="76.2" cy="53.4" rx="8" ry="3" transform="rotate(20 76.2 53.4)"/><ellipse cx="68.6" cy="68.2" rx="4" ry="8" transform="rotate(-25 68.6 68.2)"/><ellipse cx="50.7" cy="76.2" rx="4" ry="8.5" transform="rotate(10 50.7 76.2)"/><ellipse cx="31.8" cy="69" rx="8" ry="4.5" transform="rotate(-20 31.8 69)"/><ellipse cx="25" cy="50.7" rx="7.5" ry="5.5" transform="rotate(15 25 50.7)"/><path d="M83.19 66.29A12 12 0 1 0 83.19 81.71" fill="none" stroke="#1c1c1e" stroke-width="10" stroke-linecap="round"/><path d="M83.19 66.29A12 12 0 1 0 83.19 81.71" fill="none" stroke="#6cb8e6" stroke-width="6" stroke-linecap="round"/></svg></div>
+      <p>Companion for your Crate shortcut. Get it, fill it, then install.</p>
+    </div>
+    <div class="head">Shortcut</div>
+    <div class="group">
+      <a class="row" id="dl" href="https://www.icloud.com/shortcuts/6d5ad29cea14486d991099e39e1a0752"><span class="grow blue">Download Crate</span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg></a>
+      <button class="row" id="cpShort"><span class="grow">Copy link</span></button>
+    </div>
+    <div class="foot">Opens in the Shortcuts app. Tap Add Shortcut to finish.</div>
+    <div class="head">How it works</div>
+    <div class="group">
+      <div class="row"><span class="grow"><b>1. Add an app</b><small>Open Store and paste a Catbox link.</small></span></div>
+      <div class="row"><span class="grow"><b>2. Paste into Crate</b><small>Copy the link and run the shortcut.</small></span></div>
+      <div class="row"><span class="grow"><b>3. Install</b><small>Open the saved IPA with a tool from Links.</small></span></div>
+    </div>
+    <div class="foot">Crate downloads files. It can’t sign or install an IPA by itself.</div>
+  </section>
+
+  <section id="store" role="tabpanel" hidden>
+    <h1>Store</h1>
+    <div class="group">
+      <label class="row field"><span style="width:96px;flex:none">Name</span><input type="text" id="n" placeholder="App name" autocomplete="off"></label>
+      <label class="row field"><span style="width:96px;flex:none">Version</span><input type="text" id="v" placeholder="Optional" autocomplete="off"></label>
+      <label class="row field"><span style="width:96px;flex:none">Catbox link</span><input type="url" id="u" placeholder="files.catbox.moe/…" autocapitalize="off" autocorrect="off"></label>
+      <label class="row"><span class="grow"><b id="vt">Public</b><small id="vs">Shown to everyone once you publish it</small></span><input type="checkbox" class="sw" id="pub" checked aria-label="Public"></label>
+      <button class="row" id="add"><span class="grow blue" style="font-weight:600">Add app</span></button>
+    </div>
+    <div class="foot">Use a full link ending in .ipa, like https://files.catbox.moe/abc123.ipa</div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input type="search" id="q" placeholder="Search" aria-label="Search your store"></div>
+    <div class="head">Public store</div>
+    <div id="plist"></div>
+    <div class="foot">Everyone who opens this page sees these. They load from store.json in your GitHub repo.</div>
+    <div class="head">On this device</div>
+    <div id="list"></div>
+    <div class="head">Backup</div>
+    <div class="group">
+      <button class="row" id="exp"><span class="grow blue">Copy JSON to publish</span></button>
+      <button class="row" id="imp"><span class="grow blue">Import JSON</span></button>
+    </div>
+    <div class="foot">To make public apps visible to everyone: copy the JSON, then paste it into store.json in your repo and commit.</div>
+  </section>
+
+  <section id="links" role="tabpanel" hidden>
+    <h1>Links</h1>
+    <div class="head">Install tools</div>
+    <div class="group" id="g1"></div>
+    <div class="foot">Crate hands you the IPA. One of these installs it.</div>
+    <div class="head">Hosting</div>
+    <div class="group" id="g2"></div>
+    <div class="head">Appearance</div>
+    <div class="group"><button class="row" id="theme"><span class="grow">Switch light or dark</span></button></div>
+  </section>
+</main>
+
+<nav class="tabbar" role="tablist" aria-label="Sections">
+  <button class="tab" role="tab" data-t="get" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v8M8.5 12.5l3.5 3.5 3.5-3.5"/></svg>Get</button>
+  <button class="tab" role="tab" data-t="store" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Store</button>
+  <button class="tab" role="tab" data-t="links" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 006.4 0l3-3a4.5 4.5 0 00-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 00-6.4 0l-3 3a4.5 4.5 0 006.4 6.4l1-1"/></svg>Links</button>
+</nav>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+var KEY="crate-companion-store",SHORT=document.getElementById("dl").href;
+var CH='<svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg>';
+function $(i){return document.getElementById(i)}
+function load(){try{var r=localStorage.getItem(KEY);return r?JSON.parse(r):[]}catch(e){return []}}
+function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){toast("Couldn’t save in this browser")}}
+var apps=load();
+function toast(m){var t=$("toast");t.textContent=m;t.className="on";clearTimeout(toast.h);toast.h=setTimeout(function(){t.className=""},2000)}
+function copy(txt,msg){
+  function done(){toast(msg||"Copied")}
+  function fb(){var a=document.createElement("textarea");a.value=txt;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){toast("Copy failed")}a.remove()}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,fb)}else fb();
+}
+var titles={get:"Crate",store:"Store",links:"Links"};
+function show(t){
+  ["get","store","links"].forEach(function(s){$(s).hidden=s!==t});
+  document.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-selected",b.dataset.t===t)});
+  $("navt").textContent=titles[t];
+  try{history.replaceState(null,"","#"+t)}catch(e){}
+  window.scrollTo(0,0);
+}
+document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){show(b.dataset.t)}});
+window.addEventListener("scroll",function(){$("nav").className="nav"+(window.scrollY>40?" on":"")},{passive:true});
+var h=(location.hash||"").slice(1);if(titles[h])show(h);
+
+function linkRow(g,name,desc,url,color,path){
+  var a=document.createElement("a");a.className="row";a.href=url;a.target="_blank";a.rel="noopener";
+  a.innerHTML='<span class="icon" style="background:'+color+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+path+'</svg></span><span class="grow"><b></b><small></small></span>'+CH;
+  a.querySelector("b").textContent=name;a.querySelector("small").textContent=desc;g.appendChild(a);
+}
+var ic1='<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>',ic2='<path d="M12 16V4M7 9l5-5 5 5M5 20h14"/>';
+linkRow($("g1"),"AltStore","Sideload with a computer. Refreshes every 7 days.","https://altstore.io","#34aadc",ic1);
+linkRow($("g1"),"SideStore","An AltStore fork that refreshes on-device.","https://sidestore.io","#5856d6",ic1);
+linkRow($("g1"),"Sideloadly","Install an IPA from a Mac or PC.","https://sideloadly.io","#ff9500",ic1);
+linkRow($("g1"),"TrollStore","Permanent installs on certain iOS versions.","https://github.com/opa334/TrollStore","#8e8e93",ic1);
+linkRow($("g2"),"Catbox","Free file host, up to 200 MB per file.","https://catbox.moe","#ff2d55",ic2);
+linkRow($("g2"),"Catbox rules","Allowed file types and content.","https://catbox.moe/faq.php","#8e8e93",'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>');
+
+var remote=[];
+function norm(a){return{name:String(a.name||"App"),version:String(a.version||""),url:String(a.downloadURL||a.url||"")}}
+function inRemote(u){return remote.some(function(r){return r.url===u})}
+function fill(el,items,mine,msg){
+  el.innerHTML="";
+  if(!items.length){var e=document.createElement("div");e.className="group empty";e.textContent=msg;el.appendChild(e);return}
+  var g=document.createElement("div");g.className="group";
+  items.forEach(function(x){
+    var a=x.a,r=document.createElement("div");r.className="row";
+    var d=document.createElement("span");d.className="grow";
+    var b=document.createElement("b");b.textContent=a.name;
+    var s=document.createElement("small");s.textContent=(a.version?"v"+a.version+" · ":"")+a.url.replace("https://","");
+    d.appendChild(b);d.appendChild(s);
+    if(mine){
+      var v=document.createElement("button");v.className="vis";
+      v.textContent=a.pub?(inRemote(a.url)?"Public":"Public · not published yet"):"Private";
+      v.setAttribute("aria-label","Change visibility of "+a.name);
+      v.onclick=function(){apps[x.i].pub=!apps[x.i].pub;save(apps);render()};
+      d.appendChild(v);
+    }
+    var cp=document.createElement("button");cp.className="pill";cp.textContent="Copy";cp.setAttribute("aria-label","Copy link for "+a.name);
+    cp.onclick=function(){copy(a.url,"Link copied. Paste it into Crate.")};
+    r.appendChild(d);r.appendChild(cp);
+    if(mine){
+      var rm=document.createElement("button");rm.className="pill";rm.style.background="var(--fill)";rm.style.color="var(--red)";rm.textContent="Delete";rm.setAttribute("aria-label","Delete "+a.name);
+      rm.onclick=function(){apps.splice(x.i,1);save(apps);render();toast("Deleted")};
+      r.appendChild(rm);
+    }
+    g.appendChild(r);
+  });
+  el.appendChild(g);
+}
+function render(){
+  var q=$("q").value.trim().toLowerCase();
+  function m(x){return !q||x.a.name.toLowerCase().indexOf(q)>-1}
+  fill($("plist"),remote.map(function(a,i){return{a:a,i:i}}).filter(m),false,q?"No results.":"No public apps yet.");
+  fill($("list"),apps.map(function(a,i){return{a:a,i:i}}).filter(m),true,q?"No results.":"Nothing here yet. Add an app above.");
+}
+function loadRemote(){
+  fetch("store.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():{apps:[]}}).then(function(j){
+    remote=(j.apps||[]).map(norm).filter(function(a){return /^https:\/\/[a-z]+\.catbox\.moe\//i.test(a.url)});render();
+  }).catch(function(){render()});
+}
+$("pub").onchange=function(){
+  var on=$("pub").checked;
+  $("vt").textContent=on?"Public":"Private";
+  $("vs").textContent=on?"Shown to everyone once you publish it":"Only on this device";
+};
+$("add").onclick=function(){
+  var n=$("n").value.trim(),v=$("v").value.trim(),u=$("u").value.trim();
+  if(u&&!/^https?:\/\//i.test(u))u="https://"+u;
+  if(!n){toast("Enter an app name");return}
+  if(!/^https:\/\/[a-z]+\.catbox\.moe\/[\w.\-]+$/i.test(u)){toast("Use a full Catbox link ending in .ipa");return}
+  apps.unshift({name:n,version:v,url:u,pub:$("pub").checked});save(apps);
+  $("n").value=$("v").value=$("u").value="";render();toast("Added "+n+($("pub").checked?". Publish it to make it public.":""));
+};
+$("q").oninput=render;
+$("cpShort").onclick=function(){copy(SHORT,"Shortcut link copied")};
+$("exp").onclick=function(){
+  var seen={},out=[];
+  remote.concat(apps.filter(function(a){return a.pub})).forEach(function(a){if(!seen[a.url]){seen[a.url]=1;out.push({name:a.name,version:a.version,downloadURL:a.url})}});
+  if(!out.length){toast("No public apps to publish");return}
+  copy(JSON.stringify({name:"Crate",apps:out},null,2),"Copied. Paste it into store.json");
+};
+$("imp").onclick=function(){
+  var t=prompt("Paste store JSON");if(!t)return;
+  try{
+    var j=JSON.parse(t),ar=(j.apps||[]).map(function(a){return{name:String(a.name||"App"),version:String(a.version||""),url:String(a.downloadURL||a.url||""),pub:false}}).filter(function(a){return /^https:\/\/[a-z]+\.catbox\.moe\//i.test(a.url)});
+    if(!ar.length){toast("No Catbox apps found");return}
+    apps=ar.concat(apps);save(apps);render();toast("Imported "+ar.length+" app"+(ar.length>1?"s":""));
+  }catch(e){toast("That isn’t valid JSON")}
+};
+$("theme").onclick=function(){
+  var r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+  r.dataset.theme=dark?"light":"dark";
+};
+render();loadRemote();
+})();
+</script>
+</body>
+</html>
