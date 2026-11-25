@@ -10,6 +10,7 @@
 <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <title>Crate Companion</title>
+<script>if(location.hash==="#store")document.documentElement.classList.add("embed")</script>
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="icon" href="icon.png">
 <style>
@@ -85,6 +86,53 @@ button.row:active,a.row:active{background:var(--fill)}
 .mbar i{display:block;height:100%;width:100%;background:repeating-linear-gradient(135deg,#2f5fd0 0 6px,#a9c0f5 6px 12px);animation:mpole .5s linear infinite}
 .mbar i.done{animation:none;background:#2f5fd0}
 @keyframes mpole{to{background-position:17px 0}}
+.full{display:none}
+html.embed{--g:rgba(255,255,255,.62);--gb:rgba(255,255,255,.85);--gt:rgba(255,255,255,.4);--ebg:radial-gradient(60% 38% at 15% 8%,rgba(90,140,255,.55),transparent),radial-gradient(50% 36% at 95% 28%,rgba(200,110,255,.45),transparent),radial-gradient(70% 45% at 50% 100%,rgba(60,220,210,.5),transparent),#e8edf7}
+@media (prefers-color-scheme:dark){html.embed:not([data-theme="light"]){--g:rgba(255,255,255,.11);--gb:rgba(255,255,255,.3);--gt:rgba(255,255,255,.1);--ebg:radial-gradient(60% 38% at 15% 8%,rgba(60,110,240,.6),transparent),radial-gradient(50% 36% at 95% 28%,rgba(170,80,230,.5),transparent),radial-gradient(70% 45% at 50% 100%,rgba(30,190,190,.5),transparent),#080b11}}
+html.embed[data-theme="dark"]{--g:rgba(255,255,255,.11);--gb:rgba(255,255,255,.3);--gt:rgba(255,255,255,.1);--ebg:radial-gradient(60% 38% at 15% 8%,rgba(60,110,240,.6),transparent),radial-gradient(50% 36% at 95% 28%,rgba(170,80,230,.5),transparent),radial-gradient(70% 45% at 50% 100%,rgba(30,190,190,.5),transparent),#080b11}
+html.embed,html.embed body{background:var(--ebg);background-attachment:fixed}
+html.embed .tabbar,html.embed .nav,html.embed .mgmt{display:none!important}
+html.embed main{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+html.embed h1{font-size:40px;margin:24px 0 8px 6px}
+html.embed .full{display:inline-flex;align-items:center;height:34px;padding:0 16px;margin:0 0 6px 6px;border-radius:999px;color:var(--label);text-decoration:none;font-size:15px;font-weight:500;background:var(--g);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);box-shadow:inset 0 1px 0 var(--gb),inset 0 0 0 1px var(--gt)}
+html.embed .group{background:var(--g);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border-radius:30px;box-shadow:inset 0 1px 0 var(--gb),inset 0 0 0 1px var(--gt),0 12px 32px rgba(0,0,0,.18)}
+html.embed .row+.row::before{border-top-color:var(--gt)}
+html.embed .row.app{padding-top:6px;padding-bottom:16px}
+html.embed .search{position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;height:54px;margin:0;padding:0 18px;border-radius:999px;background:var(--g);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);box-shadow:inset 0 1px 0 var(--gb),inset 0 0 0 1px var(--gt),0 12px 32px rgba(0,0,0,.2)}
+html.embed .pill{background:linear-gradient(180deg,#4fa8ff,#0a6cf0);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 4px 12px rgba(10,108,240,.35)}
+html.embed .pill.soft{background:var(--gt);color:var(--label);box-shadow:inset 0 1px 0 var(--gb)}
+html.embed #mac{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
+#alt{display:none;--teal:#0f8f94}
+@media (prefers-color-scheme:dark){html:not([data-theme="light"]) #alt{--teal:#3bb7b3}}
+html[data-theme="dark"] #alt{--teal:#3bb7b3}
+html.embed #alt{display:block}
+html.embed main{display:none}
+html.embed,html.embed body{background:var(--bg)}
+.at{position:fixed;top:0;left:0;right:0;z-index:5;height:calc(48px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);display:flex;align-items:center;justify-content:center;font-weight:700;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
+.at button{position:absolute;left:12px;border:0;background:transparent;color:var(--teal);font:inherit;font-weight:500;cursor:pointer}
+#atb{max-width:600px;margin:0 auto;padding:calc(64px + env(safe-area-inset-top,0px)) 16px calc(120px + env(safe-area-inset-bottom,0px))}
+#atb h2{font-size:30px;margin:22px 0 12px 4px}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ct{position:relative;overflow:hidden;border:0;border-radius:24px;height:92px;background:var(--c);color:#fff;font:700 24px -apple-system,system-ui,sans-serif;text-align:left;padding:0 0 10px 18px;display:flex;align-items:flex-end;cursor:pointer}
+.ct svg{position:absolute;right:-8px;top:8px;width:84px;height:84px;opacity:.45}
+.sh{display:flex;align-items:center;gap:10px;margin:0 4px 12px}
+.sh img{width:38px;height:38px;border-radius:50%}
+.sh b{flex:1;font-size:22px;color:var(--label2)}
+.sh button{border:0;background:transparent;color:#d6453a;font:600 20px -apple-system,sans-serif;cursor:pointer}
+.ac{background:color-mix(in srgb,var(--t) 26%,var(--cell));border-radius:30px;padding:16px;margin-bottom:16px}
+.ah{display:flex;align-items:center;gap:12px}
+.ai{width:60px;height:60px;border-radius:16px;flex:none;display:grid;place-items:center;font:700 28px -apple-system,sans-serif;font-style:normal;color:#fff;object-fit:cover;background:linear-gradient(145deg,color-mix(in srgb,var(--t) 65%,#fff),var(--t))}
+.an{flex:1;min-width:0}.an b{display:block;font-size:19px;overflow-wrap:anywhere}.an span{color:color-mix(in srgb,var(--t) 55%,var(--label));font-size:16px}
+.fr{border:0;border-radius:999px;background:var(--t);color:#fff;font:800 16px -apple-system,sans-serif;padding:10px 22px;text-decoration:none;cursor:pointer}
+.ad{text-align:center;font-weight:700;font-size:18px;color:color-mix(in srgb,var(--t) 50%,var(--label));margin:14px 8px 4px}
+.al{display:flex;gap:16px;margin:12px 4px 0;flex-wrap:wrap}.al button{border:0;background:transparent;color:color-mix(in srgb,var(--t) 55%,var(--label));font:600 15px -apple-system,sans-serif;padding:0;cursor:pointer}.al .rd{color:var(--red)}
+.em{color:var(--label2);text-align:center;padding:24px}
+.sg{background:var(--cell);border-radius:20px;overflow:hidden}.sg button,.sg a{display:block;width:100%;padding:15px 18px;border:0;background:transparent;color:var(--label);font:inherit;text-align:left;text-decoration:none;cursor:pointer}.sg *+*{border-top:.5px solid var(--sep)}
+.atab{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:5;height:64px;display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 30px rgba(0,0,0,.35)}
+.atab button{flex:1;border:0;border-radius:999px;background:transparent;color:var(--label);font:600 11px -apple-system,system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}
+.atab svg{width:26px;height:26px}
+.atab .on{background:color-mix(in srgb,var(--label) 14%,transparent);color:var(--teal)}
+html.embed #mac{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 [hidden]{display:none!important}
 #toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 56px);transform:translate(-50%,-10px);z-index:9;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.2);padding:10px 18px;border-radius:999px;font-size:15px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 #toast.on{opacity:1;transform:translate(-50%,0)}
@@ -117,6 +165,8 @@ button.row:active,a.row:active{background:var(--fill)}
 
   <section id="store" role="tabpanel" hidden>
     <h1>Store</h1>
+    <a class="full" href="./">Open full app</a>
+    <div class="mgmt">
     <div class="group">
       <label class="row field"><span style="width:96px;flex:none">Name</span><input type="text" id="n" placeholder="App name" autocomplete="off"></label>
       <label class="row field"><span style="width:96px;flex:none">Version</span><input type="text" id="v" placeholder="Optional" autocomplete="off"></label>
@@ -131,9 +181,11 @@ button.row:active,a.row:active{background:var(--fill)}
       <button class="row" id="gh"><span class="grow blue" style="font-weight:600">Find IPA and add</span></button>
     </div>
     <div class="foot">Uses the latest release of the repo, and the Public switch above.</div>
+    </div>
     <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input type="search" id="q" placeholder="Search" aria-label="Search your store"></div>
     <div class="head">Public store</div>
     <div id="plist"></div>
+    <div class="mgmt">
     <div class="foot">Everyone who opens this page sees these. They load from store.json in your GitHub repo.</div>
     <div class="head">On this device</div>
     <div id="list"></div>
@@ -143,6 +195,7 @@ button.row:active,a.row:active{background:var(--fill)}
       <button class="row" id="imp"><span class="grow blue">Import JSON</span></button>
     </div>
     <div class="foot">To make public apps visible to everyone: copy the JSON, then paste it into store.json in your repo and commit.</div>
+    </div>
   </section>
 
   <section id="guide" role="tabpanel" hidden>
@@ -196,6 +249,7 @@ button.row:active,a.row:active{background:var(--fill)}
   <button class="tab" role="tab" data-t="links" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 006.4 0l3-3a4.5 4.5 0 00-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 00-6.4 0l-3 3a4.5 4.5 0 006.4 6.4l1-1"/></svg>Links</button>
 </nav>
 <div id="sheet" hidden><div class="scrim" id="scrim"></div><div class="sheet"><div class="group"><div class="sh">Crate versions</div><div id="vl"></div></div><div class="group" style="margin-top:8px"><button class="row" id="vc"><span class="grow blue" style="font-weight:600;text-align:center">Cancel</span></button></div></div></div>
+<div id="alt"><header class="at"><button id="abk" data-a="tab" data-c="browse" hidden>‹ Browse</button><span id="att">Browse</span></header><div id="atb"></div><nav class="atab" id="atn"><button data-a="tab" data-c="news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>News</button><button data-a="tab" data-c="sources"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 9-9 9-9-9z"/></svg>Sources</button><button data-a="tab" data-c="browse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="13" rx="3"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>Browse</button><button data-a="tab" data-c="mine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="14" height="14" rx="3"/><circle cx="18" cy="6" r="2.5"/></svg>My Apps</button><button data-a="tab" data-c="set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>Settings</button></nav></div>
 <div id="mac" role="status" aria-live="polite" hidden><div class="mw"><div class="mt"><span class="mclose" id="mx" role="button" aria-label="Close"></span><span class="mtitle">Crate</span></div><div class="mb"><div class="mmsg" id="mm"></div><div class="mbar"><i id="mf"></i></div></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
@@ -230,12 +284,54 @@ function download(a){
   setTimeout(function(){var l=document.createElement("a");l.href=a.url;l.rel="noopener";l.setAttribute("download","");document.body.appendChild(l);l.click();l.remove()},700);
 }
 $("mx").onclick=hideMac;
+var ALT=document.documentElement.classList.contains("embed"),atab="browse",acat=null;
+var CC={Games:"#c643e8",Utilities:"#3d8df5",Other:"#8e8e93"};
+var CI={Games:'<rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 10v4M5 12h4"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/>',Utilities:'<path d="M20 11l-8 8a5 5 0 01-7-7l8-8a3.5 3.5 0 015 5l-8 8a2 2 0 01-3-3l7-7"/>',Other:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>'};
+function E(t){return String(t).replace(/[&<>"']/g,function(c){return"&#"+c.charCodeAt(0)+";"})}
+function acard(a,i,s){
+  var t=a.tint||CC[a.cat]||CC.Other,d=' data-s="'+s+'" data-i="'+i+'"';
+  return '<div class="ac" style="--t:'+E(t)+'"><div class="ah"><i class="ai">'+E(a.name.charAt(0).toUpperCase())+'</i><div class="an"><b>'+E(a.name)+'</b><span>'+E(a.version?"v"+a.version:a.cat||"App")+'</span></div><button class="fr" data-a="dl"'+d+'>FREE</button></div>'+(a.desc?'<p class="ad">'+E(a.desc)+'</p>':'')+'<div class="al"><button data-a="copy"'+d+'>Copy link</button><button data-a="crate"'+d+'>Send to Crate</button>'+(s==="l"?'<button class="rd" data-a="del"'+d+'>Delete</button>':'')+'</div></div>';
+}
+function altr(){
+  var T=atab,h="";
+  var ttl={news:"News",sources:"Sources",browse:acat||"Browse",mine:"My Apps",set:"Settings"};
+  $("att").textContent=ttl[T];$("abk").hidden=!(T==="browse"&&acat);
+  if(T==="browse"&&!acat){
+    h+='<h2>Categories</h2><div class="cg">';
+    ["Games","Utilities","Other"].forEach(function(c){h+='<button class="ct" style="--c:'+CC[c]+'" data-a="cat" data-c="'+c+'">'+c+'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+CI[c]+'</svg></button>'});
+    h+='</div><h2>Featured</h2><div class="sh"><img src="icon.png" alt=""><b>Crate</b><button data-a="tab" data-c="sources">See All</button></div>';
+    h+=remote.length?remote.map(function(a,i){return acard(a,i,"r")}).join(""):'<p class="em">No apps in this source yet.</p>';
+  }else if(T==="browse"){
+    h+=remote.map(function(a,i){return a.cat===acat?acard(a,i,"r"):""}).join("")||'<p class="em">Nothing in '+E(acat)+' yet.</p>';
+  }else if(T==="news"){
+    h+=VERSIONS.map(function(v){return '<div class="ac" style="--t:#3d8df5"><div class="ah"><div class="an"><b>'+E(v.name)+'</b><span>'+E(v.note)+'</span></div><a class="fr" href="'+E(v.url)+'">GET</a></div></div>'}).join("");
+  }else if(T==="sources"){
+    h+='<div class="ac" style="--t:#2aa6a6"><div class="ah"><img class="ai" src="icon.png" alt=""><div class="an"><b>Crate</b><span>'+remote.length+' app'+(remote.length===1?"":"s")+'</span></div><button class="fr" data-a="tab" data-c="browse">VIEW</button></div></div>';
+  }else if(T==="mine"){
+    h+=apps.length?apps.map(function(a,i){return acard(a,i,"l")}).join(""):'<p class="em">Apps you add in the full app show up here.</p>';
+  }else{
+    h+='<div class="sg"><button data-a="theme">Switch light or dark</button><a href="./">Open full app</a><a href="https://altstore.io" target="_blank" rel="noopener">Get AltStore</a></div>';
+  }
+  $("atb").innerHTML=h;
+  document.querySelectorAll("#atn button").forEach(function(b){b.classList.toggle("on",b.dataset.c===T)});
+}
+$("alt").onclick=function(e){
+  var b=e.target.closest("[data-a]");if(!b)return;
+  var a=b.dataset.a,i=+b.dataset.i,o=(b.dataset.s==="l"?apps:remote)[i];
+  if(a==="dl")download(o);
+  else if(a==="copy")copy(o.url,"Link copied");
+  else if(a==="crate")location.href="shortcuts://run-shortcut?name=Crate&input=text:"+encodeURIComponent(o.url);
+  else if(a==="del"){apps.splice(i,1);save(apps);render();toast("Deleted")}
+  else if(a==="cat"){acat=b.dataset.c;atab="browse";altr();scrollTo(0,0)}
+  else if(a==="tab"){atab=b.dataset.c;acat=null;altr();scrollTo(0,0)}
+  else if(a==="theme")$("theme").click();
+};
 var titles={get:"Crate",store:"Store",guide:"Guide",links:"Links"};
 function show(t){
   ["get","store","guide","links"].forEach(function(s){$(s).hidden=s!==t});
   document.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-selected",b.dataset.t===t)});
   $("navt").textContent=titles[t];
-  try{history.replaceState(null,"","#"+t)}catch(e){}
+  
   window.scrollTo(0,0);
 }
 document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){show(b.dataset.t)}});
@@ -281,7 +377,7 @@ linkRow($("g2"),"GitHub","Host IPAs in a repo’s Releases.","https://github.com
 linkRow($("g2"),"Catbox rules","Allowed file types and content.","https://catbox.moe/faq.php","#8e8e93",'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>');
 
 var remote=[];
-function norm(a){return{name:String(a.name||"App"),version:String(a.version||""),url:String(a.downloadURL||a.url||"")}}
+function norm(a){var c=String(a.category||"Other");return{name:String(a.name||"App"),version:String(a.version||""),url:String(a.downloadURL||a.url||""),cat:CC[c]?c:"Other",tint:String(a.tintColor||a.tint||""),desc:String(a.subtitle||a.desc||"")}}
 function inRemote(u){return remote.some(function(r){return r.url===u})}
 function fill(el,items,mine,msg){
   el.innerHTML="";
@@ -316,6 +412,7 @@ function render(){
   function m(x){return !q||x.a.name.toLowerCase().indexOf(q)>-1}
   fill($("plist"),remote.map(function(a,i){return{a:a,i:i}}).filter(m),false,q?"No results.":"No public apps yet.");
   fill($("list"),apps.map(function(a,i){return{a:a,i:i}}).filter(m),true,q?"No results.":"Nothing here yet. Add an app above.");
+  if(ALT)altr();
 }
 function loadRemote(){
   fetch("store.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():{apps:[]}}).then(function(j){
