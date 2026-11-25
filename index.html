@@ -68,10 +68,27 @@ button.row:active,a.row:active{background:var(--fill)}
 #sheet.on .sheet{transform:none}
 #sheet .sh{text-align:center;font-size:13px;color:var(--label2);padding:12px 16px 8px}
 #sheet .group{background:var(--cell)}
+.row.app{flex-wrap:wrap;padding-bottom:12px}
+.row.app .grow{flex:1 1 100%;padding-bottom:2px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.pill.soft{background:var(--fill);color:var(--blue)}
+.pill.del{background:var(--fill);color:var(--red)}
+#mac{position:fixed;left:12px;right:12px;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:4;display:flex;justify-content:center;transform:translateY(calc(100% + 70px));transition:transform .5s cubic-bezier(.32,.72,0,1);pointer-events:none}
+#mac.on{transform:none;pointer-events:auto}
+.mw{width:100%;max-width:420px;background:#dcdcdc;border:1px solid #000;box-shadow:2px 2px 0 #000;font:12px/1.25 Geneva,Chicago,"Lucida Grande",Monaco,monospace;letter-spacing:0;color:#000}
+.mt{height:20px;border-bottom:1px solid #000;background:repeating-linear-gradient(180deg,#fff 0 2px,#8c8c8c 2px 3px);position:relative;text-align:center;line-height:19px}
+.mtitle{background:#dcdcdc;padding:0 8px;font-weight:700}
+.mclose{position:absolute;left:6px;top:4px;width:11px;height:11px;border:1px solid #000;background:#fff;cursor:pointer}
+.mb{padding:12px 12px 14px}
+.mmsg{margin-bottom:8px;min-height:15px}
+.mbar{height:16px;border:1px solid #000;background:#fff;padding:1px}
+.mbar i{display:block;height:100%;width:100%;background:repeating-linear-gradient(135deg,#2f5fd0 0 6px,#a9c0f5 6px 12px);animation:mpole .5s linear infinite}
+.mbar i.done{animation:none;background:#2f5fd0}
+@keyframes mpole{to{background-position:17px 0}}
 [hidden]{display:none!important}
 #toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 56px);transform:translate(-50%,-10px);z-index:9;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.2);padding:10px 18px;border-radius:999px;font-size:15px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 #toast.on{opacity:1;transform:translate(-50%,0)}
-@media (prefers-reduced-motion:reduce){#toast,.nav,.sw,.sw::after,#sheet .scrim,#sheet .sheet{transition:none}}
+@media (prefers-reduced-motion:reduce){#toast,.nav,.sw,.sw::after,#sheet .scrim,#sheet .sheet,#mac{transition:none}.mbar i{animation:none}}
 </style>
 </head>
 <body>
@@ -103,7 +120,7 @@ button.row:active,a.row:active{background:var(--fill)}
     <div class="group">
       <label class="row field"><span style="width:96px;flex:none">Name</span><input type="text" id="n" placeholder="App name" autocomplete="off"></label>
       <label class="row field"><span style="width:96px;flex:none">Version</span><input type="text" id="v" placeholder="Optional" autocomplete="off"></label>
-      <label class="row field"><span style="width:96px;flex:none">Download link</span><input type="url" id="u" placeholder="files.catbox.moe/…" autocapitalize="off" autocorrect="off"></label>
+      <label class="row field"><span style="width:96px;flex:none">Link</span><input type="url" id="u" placeholder="files.catbox.moe/…" autocapitalize="off" autocorrect="off"></label>
       <label class="row"><span class="grow"><b id="vt">Public</b><small id="vs">Shown to everyone once you publish it</small></span><input type="checkbox" class="sw" id="pub" checked aria-label="Public"></label>
       <button class="row" id="add"><span class="grow blue" style="font-weight:600">Add app</span></button>
     </div>
@@ -179,6 +196,7 @@ button.row:active,a.row:active{background:var(--fill)}
   <button class="tab" role="tab" data-t="links" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 006.4 0l3-3a4.5 4.5 0 00-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 00-6.4 0l-3 3a4.5 4.5 0 006.4 6.4l1-1"/></svg>Links</button>
 </nav>
 <div id="sheet" hidden><div class="scrim" id="scrim"></div><div class="sheet"><div class="group"><div class="sh">Crate versions</div><div id="vl"></div></div><div class="group" style="margin-top:8px"><button class="row" id="vc"><span class="grow blue" style="font-weight:600;text-align:center">Cancel</span></button></div></div></div>
+<div id="mac" role="status" aria-live="polite" hidden><div class="mw"><div class="mt"><span class="mclose" id="mx" role="button" aria-label="Close"></span><span class="mtitle">Crate</span></div><div class="mb"><div class="mmsg" id="mm"></div><div class="mbar"><i id="mf"></i></div></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -196,6 +214,22 @@ function copy(txt,msg){
   function fb(){var a=document.createElement("textarea");a.value=txt;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){toast("Copy failed")}a.remove()}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,fb)}else fb();
 }
+var mt=[];
+function hideMac(){mt.forEach(clearTimeout);mt=[];var m=$("mac");m.classList.remove("on");setTimeout(function(){if(!m.classList.contains("on"))m.hidden=true},550)}
+function mac(name){
+  mt.forEach(clearTimeout);mt=[];
+  var m=$("mac"),f=$("mf"),t=$("mm");
+  f.className="";t.textContent="Contacting server…";
+  m.hidden=false;void m.offsetHeight;m.classList.add("on");
+  mt.push(setTimeout(function(){t.textContent="Downloading “"+name+"”…"},900));
+  mt.push(setTimeout(function(){f.className="done";t.textContent="Started. Look in Files › Downloads."},4200));
+  mt.push(setTimeout(hideMac,9000));
+}
+function download(a){
+  mac(a.name);
+  setTimeout(function(){var l=document.createElement("a");l.href=a.url;l.rel="noopener";l.setAttribute("download","");document.body.appendChild(l);l.click();l.remove()},700);
+}
+$("mx").onclick=hideMac;
 var titles={get:"Crate",store:"Store",guide:"Guide",links:"Links"};
 function show(t){
   ["get","store","guide","links"].forEach(function(s){$(s).hidden=s!==t});
@@ -254,7 +288,7 @@ function fill(el,items,mine,msg){
   if(!items.length){var e=document.createElement("div");e.className="group empty";e.textContent=msg;el.appendChild(e);return}
   var g=document.createElement("div");g.className="group";
   items.forEach(function(x){
-    var a=x.a,r=document.createElement("div");r.className="row";
+    var a=x.a,r=document.createElement("div");r.className="row app";
     var d=document.createElement("span");d.className="grow";
     var b=document.createElement("b");b.textContent=a.name;
     var s=document.createElement("small");s.textContent=(a.version?"v"+a.version+" · ":"")+a.url.replace("https://","");
@@ -266,14 +300,13 @@ function fill(el,items,mine,msg){
       v.onclick=function(){apps[x.i].pub=!apps[x.i].pub;save(apps);render()};
       d.appendChild(v);
     }
-    var cp=document.createElement("button");cp.className="pill";cp.textContent="Copy";cp.setAttribute("aria-label","Copy link for "+a.name);
-    cp.onclick=function(){copy(a.url,"Link copied. Paste it into Crate.")};
-    r.appendChild(d);r.appendChild(cp);
-    if(mine){
-      var rm=document.createElement("button");rm.className="pill";rm.style.background="var(--fill)";rm.style.color="var(--red)";rm.textContent="Delete";rm.setAttribute("aria-label","Delete "+a.name);
-      rm.onclick=function(){apps.splice(x.i,1);save(apps);render();toast("Deleted")};
-      r.appendChild(rm);
-    }
+    var bt=document.createElement("div");bt.className="btns";
+    function pill(t,cls,fn,al){var b=document.createElement("button");b.className="pill"+(cls?" "+cls:"");b.textContent=t;b.setAttribute("aria-label",al||t);b.onclick=fn;bt.appendChild(b)}
+    pill("Download","",function(){download(a)},"Download "+a.name);
+    pill("Crate","soft",function(){location.href="shortcuts://run-shortcut?name=Crate&input=text:"+encodeURIComponent(a.url)},"Send "+a.name+" to Crate");
+    pill("Copy","soft",function(){copy(a.url,"Link copied")},"Copy link for "+a.name);
+    if(mine)pill("Delete","del",function(){apps.splice(x.i,1);save(apps);render();toast("Deleted")},"Delete "+a.name);
+    r.appendChild(d);r.appendChild(bt);
     g.appendChild(r);
   });
   el.appendChild(g);
