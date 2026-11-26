@@ -102,37 +102,59 @@ html.embed .search{position:fixed;left:16px;right:16px;bottom:calc(14px + env(sa
 html.embed .pill{background:linear-gradient(180deg,#4fa8ff,#0a6cf0);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 4px 12px rgba(10,108,240,.35)}
 html.embed .pill.soft{background:var(--gt);color:var(--label);box-shadow:inset 0 1px 0 var(--gb)}
 html.embed #mac{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
-#alt{display:none;--teal:#0f8f94}
-@media (prefers-color-scheme:dark){html:not([data-theme="light"]) #alt{--teal:#3bb7b3}}
-html[data-theme="dark"] #alt{--teal:#3bb7b3}
+#alt{display:none;--acc:#1f78b4}
+@media (prefers-color-scheme:dark){html:not([data-theme="light"]) #alt{--acc:#6cb8e6}}
+html[data-theme="dark"] #alt{--acc:#6cb8e6}
 html.embed #alt{display:block}
 html.embed main{display:none}
 html.embed,html.embed body{background:var(--bg)}
-.at{position:fixed;top:0;left:0;right:0;z-index:5;height:calc(48px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);display:flex;align-items:center;justify-content:center;font-weight:700;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
-.at button{position:absolute;left:12px;border:0;background:transparent;color:var(--teal);font:inherit;font-weight:500;cursor:pointer}
-#atb{max-width:600px;margin:0 auto;padding:calc(64px + env(safe-area-inset-top,0px)) 16px calc(120px + env(safe-area-inset-bottom,0px))}
-#atb h2{font-size:30px;margin:22px 0 12px 4px}
-.cg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.ct{position:relative;overflow:hidden;border:0;border-radius:24px;height:92px;background:var(--c);color:#fff;font:700 24px -apple-system,system-ui,sans-serif;text-align:left;padding:0 0 10px 18px;display:flex;align-items:flex-end;cursor:pointer}
-.ct svg{position:absolute;right:-8px;top:8px;width:84px;height:84px;opacity:.45}
-.sh{display:flex;align-items:center;gap:10px;margin:0 4px 12px}
-.sh img{width:38px;height:38px;border-radius:50%}
-.sh b{flex:1;font-size:22px;color:var(--label2)}
-.sh button{border:0;background:transparent;color:#d6453a;font:600 20px -apple-system,sans-serif;cursor:pointer}
-.ac{background:color-mix(in srgb,var(--t) 26%,var(--cell));border-radius:30px;padding:16px;margin-bottom:16px}
-.ah{display:flex;align-items:center;gap:12px}
-.ai{width:60px;height:60px;border-radius:16px;flex:none;display:grid;place-items:center;font:700 28px -apple-system,sans-serif;font-style:normal;color:#fff;object-fit:cover;background:linear-gradient(145deg,color-mix(in srgb,var(--t) 65%,#fff),var(--t))}
-.an{flex:1;min-width:0}.an b{display:block;font-size:19px;overflow-wrap:anywhere}.an span{color:color-mix(in srgb,var(--t) 55%,var(--label));font-size:16px}
-.fr{border:0;border-radius:999px;background:var(--t);color:#fff;font:800 16px -apple-system,sans-serif;padding:10px 22px;text-decoration:none;cursor:pointer}
-.ad{text-align:center;font-weight:700;font-size:18px;color:color-mix(in srgb,var(--t) 50%,var(--label));margin:14px 8px 4px}
-.al{display:flex;gap:16px;margin:12px 4px 0;flex-wrap:wrap}.al button{border:0;background:transparent;color:color-mix(in srgb,var(--t) 55%,var(--label));font:600 15px -apple-system,sans-serif;padding:0;cursor:pointer}.al .rd{color:var(--red)}
-.em{color:var(--label2);text-align:center;padding:24px}
-.sg{background:var(--cell);border-radius:20px;overflow:hidden}.sg button,.sg a{display:block;width:100%;padding:15px 18px;border:0;background:transparent;color:var(--label);font:inherit;text-align:left;text-decoration:none;cursor:pointer}.sg *+*{border-top:.5px solid var(--sep)}
-.atab{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:5;height:64px;display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 30px rgba(0,0,0,.35)}
-.atab button{flex:1;border:0;border-radius:999px;background:transparent;color:var(--label);font:600 11px -apple-system,system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}
-.atab svg{width:26px;height:26px}
-.atab .on{background:color-mix(in srgb,var(--label) 14%,transparent);color:var(--teal)}
+@keyframes rise{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes rp{to{transform:scale(4);opacity:0}}
+@keyframes drop{0%{transform:none;opacity:1}40%{transform:translateY(10px);opacity:0}41%{transform:translateY(-10px);opacity:0}100%{transform:none;opacity:1}}
+@keyframes ring{from{box-shadow:0 0 0 0 color-mix(in srgb,var(--t) 60%,transparent)}to{box-shadow:0 0 0 16px transparent}}
+.at{max-width:600px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top,0px)) 20px 0}
+.at h1{font-size:38px;line-height:1.05;margin:4px 0 6px;letter-spacing:-.025em}
+.at .bk{border:0;background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc);font:600 15px -apple-system,system-ui,sans-serif;border-radius:999px;padding:7px 14px;cursor:pointer;transition:transform .25s cubic-bezier(.32,.72,0,1)}
+.at .bk:active{transform:scale(.93)}
+.pop{animation:rise .55s cubic-bezier(.32,.72,0,1) both}
+#atb{max-width:600px;margin:0 auto;padding:6px 16px calc(120px + env(safe-area-inset-bottom,0px))}
+#atb>*{animation:rise .55s cubic-bezier(.32,.72,0,1) both;animation-delay:calc(var(--k,0)*60ms)}
+#atb h2{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--label2);margin:22px 4px 10px;font-weight:700}
+.cg{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}.cg::-webkit-scrollbar{display:none}
+.ct{position:relative;overflow:hidden;flex:none;display:flex;align-items:center;gap:9px;height:50px;padding:0 20px 0 14px;border-radius:999px;border:1px solid var(--sep);background:var(--cell);color:var(--label);font:600 16px -apple-system,system-ui,sans-serif;cursor:pointer;transition:transform .25s cubic-bezier(.32,.72,0,1)}
+.ct svg{width:22px;height:22px;color:var(--c)}
+.ct:active{transform:scale(.92)}
+.sh{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:color-mix(in srgb,var(--acc) 12%,var(--cell));margin-bottom:12px}
+.sh img{width:44px;height:44px;border-radius:12px}
+.sh b{flex:1;font-size:18px}.sh small{display:block;color:var(--label2);font-weight:400;font-size:14px}
+.sh button{border:1px solid var(--acc);background:transparent;color:var(--acc);font:600 15px -apple-system,system-ui,sans-serif;border-radius:999px;padding:7px 16px;cursor:pointer;transition:transform .25s cubic-bezier(.32,.72,0,1)}
+.sh button:active{transform:scale(.92)}
+.ac{position:relative;overflow:hidden;display:grid;grid-template-columns:56px 1fr 44px;gap:4px 14px;align-items:center;background:var(--cell);border:1px solid var(--sep);border-radius:18px;padding:14px 14px 14px 20px;margin-bottom:12px;transition:transform .3s cubic-bezier(.32,.72,0,1)}
+.ac::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--t)}
+.ac:active{transform:scale(.985)}
+.ac.nw{grid-template-columns:1fr 44px}
+.ai{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;font:700 26px -apple-system,sans-serif;font-style:normal;color:#0b1118;object-fit:cover;background:linear-gradient(145deg,color-mix(in srgb,var(--t) 70%,#fff),var(--t))}
+.an{min-width:0}.an b{display:block;font-size:18px;overflow-wrap:anywhere}.an span{color:var(--label2);font-size:15px}
+.dl{position:relative;overflow:hidden;width:44px;height:44px;border:0;border-radius:14px;background:var(--t);color:#0b1118;display:grid;place-items:center;cursor:pointer;text-decoration:none;transition:transform .25s cubic-bezier(.32,.72,0,1)}
+.dl svg{width:22px;height:22px}
+.dl:active{transform:scale(.88)}
+.dl.go{animation:ring .7s ease-out}.dl.go svg{animation:drop .9s cubic-bezier(.32,.72,0,1)}
+.ad{grid-column:1/-1;color:var(--label2);margin:4px 0 0;font-size:15px}
+.al{grid-column:1/-1;display:flex;gap:18px;flex-wrap:wrap;margin-top:6px}
+.al button{border:0;background:transparent;color:var(--acc);font:600 15px -apple-system,system-ui,sans-serif;padding:2px 0;cursor:pointer;transition:transform .2s}
+.al button:active{transform:scale(.9)}.al .rd{color:var(--red)}
+.rp{position:absolute;border-radius:50%;background:currentColor;opacity:.28;transform:scale(0);animation:rp .6s ease-out;pointer-events:none}
+.em{color:var(--label2);text-align:center;padding:26px}
+.sg{background:var(--cell);border:1px solid var(--sep);border-radius:18px;overflow:hidden}.sg button,.sg a{display:block;width:100%;padding:15px 18px;border:0;background:transparent;color:var(--label);font:inherit;text-align:left;text-decoration:none;cursor:pointer;transition:background .2s}.sg *+*{border-top:.5px solid var(--sep)}.sg button:active,.sg a:active{background:var(--fill)}
+.atab{position:fixed;left:14px;right:14px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:5;height:66px;display:flex;padding:4px;border-radius:26px;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);border:1px solid var(--sep);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.atab button{position:relative;z-index:1;flex:1;overflow:hidden;border:0;border-radius:20px;background:transparent;color:var(--label2);font:600 10.5px -apple-system,system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:color .3s,transform .25s cubic-bezier(.32,.72,0,1)}
+.atab button.on{color:var(--acc)}.atab button:active{transform:scale(.9)}
+.atab svg{width:25px;height:25px;transition:transform .4s cubic-bezier(.32,1.6,.5,1)}.atab .on svg{transform:translateY(-1px) scale(1.12)}
+.ind{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/5);border-radius:20px;background:color-mix(in srgb,var(--acc) 18%,transparent);transition:transform .5s cubic-bezier(.32,.72,0,1)}
+@media (prefers-reduced-motion:reduce){#atb>*,.pop,.dl,.dl svg,.ind,.rp,.atab svg{animation:none!important;transition:none!important}}
 html.embed #mac{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+.field select{flex:1;min-width:0;height:44px;border:0;outline:0;background:transparent;color:var(--label);font:inherit;letter-spacing:inherit;text-align:right;text-align-last:right}
+.field input[type=color]{flex:0 0 44px;width:44px;height:30px;padding:0;border:0;background:transparent;margin-left:auto;cursor:pointer}
 [hidden]{display:none!important}
 #toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 56px);transform:translate(-50%,-10px);z-index:9;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.2);padding:10px 18px;border-radius:999px;font-size:15px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 #toast.on{opacity:1;transform:translate(-50%,0)}
@@ -170,6 +192,9 @@ html.embed #mac{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
     <div class="group">
       <label class="row field"><span style="width:96px;flex:none">Name</span><input type="text" id="n" placeholder="App name" autocomplete="off"></label>
       <label class="row field"><span style="width:96px;flex:none">Version</span><input type="text" id="v" placeholder="Optional" autocomplete="off"></label>
+      <label class="row field"><span style="width:96px;flex:none">Category</span><select id="cat" aria-label="Category"><option value="Games">Games</option><option value="Utilities">Tools</option><option value="Other" selected>More</option></select></label>
+      <label class="row field"><span style="width:96px;flex:none">About</span><input type="text" id="dsc" maxlength="120" placeholder="Short description" autocomplete="off"></label>
+      <label class="row field"><span style="width:96px;flex:none">Color</span><input type="color" id="tint" value="#6cb8e6" aria-label="Card color"></label>
       <label class="row field"><span style="width:96px;flex:none">Link</span><input type="url" id="u" placeholder="files.catbox.moe/…" autocapitalize="off" autocorrect="off"></label>
       <label class="row"><span class="grow"><b id="vt">Public</b><small id="vs">Shown to everyone once you publish it</small></span><input type="checkbox" class="sw" id="pub" checked aria-label="Public"></label>
       <button class="row" id="add"><span class="grow blue" style="font-weight:600">Add app</span></button>
@@ -249,7 +274,7 @@ html.embed #mac{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
   <button class="tab" role="tab" data-t="links" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 006.4 0l3-3a4.5 4.5 0 00-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 00-6.4 0l-3 3a4.5 4.5 0 006.4 6.4l1-1"/></svg>Links</button>
 </nav>
 <div id="sheet" hidden><div class="scrim" id="scrim"></div><div class="sheet"><div class="group"><div class="sh">Crate versions</div><div id="vl"></div></div><div class="group" style="margin-top:8px"><button class="row" id="vc"><span class="grow blue" style="font-weight:600;text-align:center">Cancel</span></button></div></div></div>
-<div id="alt"><header class="at"><button id="abk" data-a="tab" data-c="browse" hidden>‹ Browse</button><span id="att">Browse</span></header><div id="atb"></div><nav class="atab" id="atn"><button data-a="tab" data-c="news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>News</button><button data-a="tab" data-c="sources"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 9-9 9-9-9z"/></svg>Sources</button><button data-a="tab" data-c="browse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="13" rx="3"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>Browse</button><button data-a="tab" data-c="mine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="14" height="14" rx="3"/><circle cx="18" cy="6" r="2.5"/></svg>My Apps</button><button data-a="tab" data-c="set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>Settings</button></nav></div>
+<div id="alt"><header class="at"><button class="bk" id="abk" data-a="tab" data-c="browse" hidden>‹ Discover</button><h1 id="att">Discover</h1></header><div id="atb"></div><nav class="atab" id="atn"><i class="ind" id="ind"></i><button data-a="tab" data-c="browse" aria-label="Discover"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>Discover</button><button data-a="tab" data-c="sources" aria-label="Shelves"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18M3 15h18"/></svg>Shelves</button><button data-a="tab" data-c="news" aria-label="Updates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v-5a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 004 0"/></svg>Updates</button><button data-a="tab" data-c="mine" aria-label="Saved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v17l-5-4-5 4z"/></svg>Saved</button><button data-a="tab" data-c="set" aria-label="Options"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h10M18 8h2M4 16h2M10 16h10"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/></svg>Options</button></nav></div>
 <div id="mac" role="status" aria-live="polite" hidden><div class="mw"><div class="mt"><span class="mclose" id="mx" role="button" aria-label="Close"></span><span class="mtitle">Crate</span></div><div class="mb"><div class="mmsg" id="mm"></div><div class="mbar"><i id="mf"></i></div></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
@@ -285,40 +310,49 @@ function download(a){
 }
 $("mx").onclick=hideMac;
 var ALT=document.documentElement.classList.contains("embed"),atab="browse",acat=null;
-var CC={Games:"#c643e8",Utilities:"#3d8df5",Other:"#8e8e93"};
-var CI={Games:'<rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 10v4M5 12h4"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/>',Utilities:'<path d="M20 11l-8 8a5 5 0 01-7-7l8-8a3.5 3.5 0 015 5l-8 8a2 2 0 01-3-3l7-7"/>',Other:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>'};
+var ORD=["browse","sources","news","mine","set"];
+var CC={Games:"#ff7a45",Utilities:"#6cb8e6",Other:"#b794f4"};
+var LB={Games:"Games",Utilities:"Tools",Other:"More"};
+var CI={Games:'<rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1.2"/><circle cx="15" cy="15" r="1.2"/><circle cx="12" cy="12" r="1.2"/>',Utilities:'<path d="M4 8h10M18 8h2M4 16h2M10 16h10"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/>',Other:'<circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>'};
+var ARW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M6.5 11l5.5 5.5 5.5-5.5M5 20h14"/></svg>';
+var CHV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
 function E(t){return String(t).replace(/[&<>"']/g,function(c){return"&#"+c.charCodeAt(0)+";"})}
 function acard(a,i,s){
-  var t=a.tint||CC[a.cat]||CC.Other,d=' data-s="'+s+'" data-i="'+i+'"';
-  return '<div class="ac" style="--t:'+E(t)+'"><div class="ah"><i class="ai">'+E(a.name.charAt(0).toUpperCase())+'</i><div class="an"><b>'+E(a.name)+'</b><span>'+E(a.version?"v"+a.version:a.cat||"App")+'</span></div><button class="fr" data-a="dl"'+d+'>FREE</button></div>'+(a.desc?'<p class="ad">'+E(a.desc)+'</p>':'')+'<div class="al"><button data-a="copy"'+d+'>Copy link</button><button data-a="crate"'+d+'>Send to Crate</button>'+(s==="l"?'<button class="rd" data-a="del"'+d+'>Delete</button>':'')+'</div></div>';
+  var t=a.tint||CC[a.cat]||"#6cb8e6",d=' data-s="'+s+'" data-i="'+i+'"';
+  return '<div class="ac" style="--t:'+E(t)+'"><i class="ai">'+E(a.name.charAt(0).toUpperCase())+'</i><div class="an"><b>'+E(a.name)+'</b><span>'+E(a.version?"v"+a.version:LB[a.cat]||"App")+'</span></div><button class="dl" data-a="dl" aria-label="Download '+E(a.name)+'"'+d+'>'+ARW+'</button>'+(a.desc?'<p class="ad">'+E(a.desc)+'</p>':'')+'<div class="al"><button data-a="copy"'+d+'>Copy link</button><button data-a="crate"'+d+'>Send to Crate</button>'+(s==="l"?'<button class="rd" data-a="del"'+d+'>Delete</button>':'')+'</div></div>';
 }
 function altr(){
   var T=atab,h="";
-  var ttl={news:"News",sources:"Sources",browse:acat||"Browse",mine:"My Apps",set:"Settings"};
-  $("att").textContent=ttl[T];$("abk").hidden=!(T==="browse"&&acat);
+  var ttl={news:"Updates",sources:"Shelves",browse:acat?LB[acat]:"Discover",mine:"Saved",set:"Options"};
+  var at=$("att");at.textContent=ttl[T];at.classList.remove("pop");void at.offsetWidth;at.classList.add("pop");
+  $("abk").hidden=!(T==="browse"&&acat);
+  $("ind").style.transform="translateX("+ORD.indexOf(T)*100+"%)";
   if(T==="browse"&&!acat){
     h+='<h2>Categories</h2><div class="cg">';
-    ["Games","Utilities","Other"].forEach(function(c){h+='<button class="ct" style="--c:'+CC[c]+'" data-a="cat" data-c="'+c+'">'+c+'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+CI[c]+'</svg></button>'});
-    h+='</div><h2>Featured</h2><div class="sh"><img src="icon.png" alt=""><b>Crate</b><button data-a="tab" data-c="sources">See All</button></div>';
-    h+=remote.length?remote.map(function(a,i){return acard(a,i,"r")}).join(""):'<p class="em">No apps in this source yet.</p>';
+    ["Games","Utilities","Other"].forEach(function(c){h+='<button class="ct" style="--c:'+CC[c]+'" data-a="cat" data-c="'+c+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+CI[c]+'</svg>'+LB[c]+'</button>'});
+    h+='</div><h2>Fresh in the crate</h2><div class="sh"><img src="icon.png" alt=""><b>Crate shelf<small>'+remote.length+' app'+(remote.length===1?"":"s")+'</small></b><button data-a="tab" data-c="sources">Open</button></div>';
+    h+=remote.length?remote.map(function(a,i){return acard(a,i,"r")}).join(""):'<p class="em">This shelf is empty for now.</p>';
   }else if(T==="browse"){
-    h+=remote.map(function(a,i){return a.cat===acat?acard(a,i,"r"):""}).join("")||'<p class="em">Nothing in '+E(acat)+' yet.</p>';
+    h+=remote.map(function(a,i){return a.cat===acat?acard(a,i,"r"):""}).join("")||'<p class="em">Nothing in '+E(LB[acat])+' yet.</p>';
   }else if(T==="news"){
-    h+=VERSIONS.map(function(v){return '<div class="ac" style="--t:#3d8df5"><div class="ah"><div class="an"><b>'+E(v.name)+'</b><span>'+E(v.note)+'</span></div><a class="fr" href="'+E(v.url)+'">GET</a></div></div>'}).join("");
+    h+=VERSIONS.map(function(v){return '<div class="ac nw" style="--t:#6cb8e6"><div class="an"><b>'+E(v.name)+'</b><span>'+E(v.note)+'</span></div><a class="dl" href="'+E(v.url)+'" aria-label="Download '+E(v.name)+'">'+ARW+'</a></div>'}).join("");
   }else if(T==="sources"){
-    h+='<div class="ac" style="--t:#2aa6a6"><div class="ah"><img class="ai" src="icon.png" alt=""><div class="an"><b>Crate</b><span>'+remote.length+' app'+(remote.length===1?"":"s")+'</span></div><button class="fr" data-a="tab" data-c="browse">VIEW</button></div></div>';
+    h+='<div class="ac" style="--t:#6cb8e6"><img class="ai" src="icon.png" alt=""><div class="an"><b>Crate shelf</b><span>'+remote.length+' app'+(remote.length===1?"":"s")+'</span></div><button class="dl" data-a="tab" data-c="browse" aria-label="Open shelf">'+CHV+'</button></div>';
   }else if(T==="mine"){
     h+=apps.length?apps.map(function(a,i){return acard(a,i,"l")}).join(""):'<p class="em">Apps you add in the full app show up here.</p>';
   }else{
-    h+='<div class="sg"><button data-a="theme">Switch light or dark</button><a href="./">Open full app</a><a href="https://altstore.io" target="_blank" rel="noopener">Get AltStore</a></div>';
+    h+='<div class="sg"><button data-a="theme">Switch light or dark</button><a href="./">Open full app</a><a href="./#links">Install tools</a></div>';
   }
   $("atb").innerHTML=h;
+  Array.prototype.forEach.call($("atb").children,function(el,i){el.style.setProperty("--k",Math.min(i,8))});
   document.querySelectorAll("#atn button").forEach(function(b){b.classList.toggle("on",b.dataset.c===T)});
 }
+function rip(b,e){var r=b.getBoundingClientRect(),z=Math.max(r.width,r.height),x=document.createElement("span");x.className="rp";x.style.cssText="width:"+z+"px;height:"+z+"px;left:"+(e.clientX-r.left-z/2)+"px;top:"+(e.clientY-r.top-z/2)+"px";b.appendChild(x);setTimeout(function(){x.remove()},650)}
 $("alt").onclick=function(e){
   var b=e.target.closest("[data-a]");if(!b)return;
   var a=b.dataset.a,i=+b.dataset.i,o=(b.dataset.s==="l"?apps:remote)[i];
-  if(a==="dl")download(o);
+  if(/\b(dl|ct)\b/.test(b.className)||b.parentNode.id==="atn")rip(b,e);
+  if(a==="dl"){b.classList.add("go");setTimeout(function(){b.classList.remove("go")},900);download(o)}
   else if(a==="copy")copy(o.url,"Link copied");
   else if(a==="crate")location.href="shortcuts://run-shortcut?name=Crate&input=text:"+encodeURIComponent(o.url);
   else if(a==="del"){apps.splice(i,1);save(apps);render();toast("Deleted")}
@@ -387,7 +421,7 @@ function fill(el,items,mine,msg){
     var a=x.a,r=document.createElement("div");r.className="row app";
     var d=document.createElement("span");d.className="grow";
     var b=document.createElement("b");b.textContent=a.name;
-    var s=document.createElement("small");s.textContent=(a.version?"v"+a.version+" · ":"")+a.url.replace("https://","");
+    var s=document.createElement("small");s.textContent=(a.cat&&a.cat!=="Other"?LB[a.cat]+" · ":"")+(a.version?"v"+a.version+" · ":"")+a.url.replace("https://","");
     d.appendChild(b);d.appendChild(s);
     if(mine){
       var v=document.createElement("button");v.className="vis";
@@ -424,13 +458,17 @@ $("pub").onchange=function(){
   $("vt").textContent=on?"Public":"Private";
   $("vs").textContent=on?"Shown to everyone once you publish it":"Only on this device";
 };
+var tintTouched=false;
+$("tint").addEventListener("input",function(){tintTouched=true});
+function xt(o){o.cat=$("cat").value;o.desc=$("dsc").value.trim();o.tint=tintTouched?$("tint").value:"";return o}
+function resetX(){$("cat").value="Other";$("dsc").value="";$("tint").value="#6cb8e6";tintTouched=false}
 $("add").onclick=function(){
   var n=$("n").value.trim(),v=$("v").value.trim(),u=$("u").value.trim();
   if(u&&!/^https?:\/\//i.test(u))u="https://"+u;
   if(!n){toast("Enter an app name");return}
   if(!okUrl(u)){toast("Use a Catbox or GitHub download link");return}
-  apps.unshift({name:n,version:v,url:u,pub:$("pub").checked});save(apps);
-  $("n").value=$("v").value=$("u").value="";render();toast("Added "+n+($("pub").checked?". Publish it to make it public.":""));
+  apps.unshift(xt({name:n,version:v,url:u,pub:$("pub").checked}));save(apps);
+  $("n").value=$("v").value=$("u").value="";resetX();render();toast("Added "+n+($("pub").checked?". Publish it to make it public.":""));
 };
 function parseRepo(t){var m=t.trim().replace(/^https?:\/\//i,"").replace(/^www\./i,"").match(/^github\.com\/([\w.\-]+)\/([\w.\-]+)/i);return m?{o:m[1],r:m[2].replace(/\.git$/i,"")}:null}
 $("gh").onclick=function(){
@@ -446,22 +484,22 @@ $("gh").onclick=function(){
     if(!as.length){toast("No .ipa in the latest release");return}
     var a=as[0],ver=String(j.tag_name||"").replace(/^v/i,"");
     if(apps.some(function(x){return x.url===a.browser_download_url})){toast("Already in your store");return}
-    apps.unshift({name:p.r,version:ver,url:a.browser_download_url,pub:$("pub").checked});
-    save(apps);render();$("ghu").value="";toast("Added "+p.r);
+    apps.unshift(xt({name:p.r,version:ver,url:a.browser_download_url,pub:$("pub").checked}));
+    save(apps);render();$("ghu").value="";resetX();toast("Added "+p.r);
   }).catch(function(e){toast(e.message==="none"?"No release found. See the Guide tab":"GitHub didn’t respond. Try again later")});
 };
 $("q").oninput=render;
 $("cpShort").onclick=function(){copy(SHORT,"Shortcut link copied")};
 $("exp").onclick=function(){
   var seen={},out=[];
-  remote.concat(apps.filter(function(a){return a.pub})).forEach(function(a){if(!seen[a.url]){seen[a.url]=1;out.push({name:a.name,version:a.version,downloadURL:a.url})}});
+  remote.concat(apps.filter(function(a){return a.pub})).forEach(function(a){if(!seen[a.url]){seen[a.url]=1;var o={name:a.name,version:a.version,downloadURL:a.url,category:a.cat||"Other"};if(a.desc)o.subtitle=a.desc;if(a.tint)o.tintColor=a.tint;out.push(o)}});
   if(!out.length){toast("No public apps to publish");return}
   copy(JSON.stringify({name:"Crate",apps:out},null,2),"Copied. Paste it into store.json");
 };
 $("imp").onclick=function(){
   var t=prompt("Paste store JSON");if(!t)return;
   try{
-    var j=JSON.parse(t),ar=(j.apps||[]).map(function(a){return{name:String(a.name||"App"),version:String(a.version||""),url:String(a.downloadURL||a.url||""),pub:false}}).filter(function(a){return okUrl(a.url)});
+    var j=JSON.parse(t),ar=(j.apps||[]).map(function(a){var o=norm(a);o.pub=false;return o}).filter(function(a){return okUrl(a.url)});
     if(!ar.length){toast("No valid apps found");return}
     apps=ar.concat(apps);save(apps);render();toast("Imported "+ar.length+" app"+(ar.length>1?"s":""));
   }catch(e){toast("That isn’t valid JSON")}
